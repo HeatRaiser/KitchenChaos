@@ -34,7 +34,7 @@ Transform:
   - {fileID: 4616641446870136515}
   - {fileID: 6188496810086288116}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &4882757615522546287
 Animator:
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 4112282535717525006}
   - component: {fileID: 954669113581520914}
   - component: {fileID: 482590148307210839}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: KitchenDoors (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -210,7 +210,7 @@ GameObject:
   - component: {fileID: 2378006507359584374}
   - component: {fileID: 6358236149079017070}
   - component: {fileID: 7635181951056125841}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: KitchenDoors
   m_TagString: Untagged
   m_Icon: {fileID: 0}
