@@ -33,7 +33,15 @@ public class Player : MonoBehaviour
         inputVector = inputVector.normalized;
         
         Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
-        transform.position += moveDir * (moveSpeed * Time.deltaTime);
+
+        float playerSize = .8f;
+        bool canMove = !Physics.Raycast(transform.position + new Vector3(0, 0.5f, 0f), moveDir, playerSize);
+
+         if (canMove)
+         {
+             transform.position += moveDir * (moveSpeed * Time.deltaTime);
+         }
+        
 
         isWalking = moveDir != Vector3.zero;
         
