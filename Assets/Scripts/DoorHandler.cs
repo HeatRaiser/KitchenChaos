@@ -36,7 +36,6 @@ public class DoorHandler : MonoBehaviour
         {
             Vector3 playerExitPosition = other.transform.position;
             float distance = Vector3.Distance(playerEnterPosition, playerExitPosition);
-            Debug.Log(distance);
             
             if (!playerOnTheOtherSide)
             {
