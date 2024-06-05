@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FloorGenerator : MonoBehaviour
@@ -9,15 +10,19 @@ public class FloorGenerator : MonoBehaviour
     [SerializeField] private GameObject roomOne, roomTwo, roomThree, mainRoom;
     private float distanceBetweenTiles = 1.5f;
 
-    private List<GameObject> room2Cubes;
+    // private List<GameObject> room2Cubes = new List<GameObject>();
     public float moveSpeed = 1.0f;  
     public float startPositionZ = 26.0f;  
     public float endPositionZ = 5.0f;
 
     // private void Start()
     // {
-    //     room2Cubes = new List<GameObject>(); 
-    //     room2Cubes.AddRange(GameObject.FindGameObjectsWithTag("Tile2"));
+    //     GameObject[] foundCubes = GameObject.FindGameObjectsWithTag("Tile2");
+    //
+    //     foreach (GameObject cube in foundCubes)
+    //     {
+    //         room2Cubes.Add(cube);
+    //     }
     // }
 
     // private void Update()
@@ -98,20 +103,20 @@ public class FloorGenerator : MonoBehaviour
         }
     }
 
-    private void MoveRows()
-    {
-        foreach (GameObject Tile2 in room2Cubes)
-        {
-            Tile2.transform.position += Vector3.back * (moveSpeed * Time.deltaTime);
-    
-            if (Tile2.transform.position.z <= endPositionZ)
-            {
-                //int index = room2Cubes.IndexOf(Tile2);
-                //float staggeredStartPositionZ = startPositionZ + index;
-    
-                Tile2.transform.position = new Vector3(Tile2.transform.position.x, Tile2.transform.position.y,
-                    startPositionZ);
-            }
-        }
-    }
+    // private void MoveRows()
+    // {
+    //     foreach (GameObject Tile2 in room2Cubes)
+    //     {
+    //         Tile2.transform.position += Vector3.back * (moveSpeed * Time.deltaTime);
+    //
+    //         if (Tile2.transform.position.z <= endPositionZ)
+    //         {
+    //             //int index = room2Cubes.IndexOf(Tile2);
+    //             //float staggeredStartPositionZ = startPositionZ + index;
+    //
+    //             Tile2.transform.position = new Vector3(Tile2.transform.position.x, Tile2.transform.position.y,
+    //                 startPositionZ);
+    //         }
+    //     }
+    // }
 }
