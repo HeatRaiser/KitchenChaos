@@ -52980,6 +52980,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1524035720207486471, guid: 5f16639e8b717a04ead96fa4493be87d, type: 3}
+      propertyPath: objectToSpawn
+      value: 
+      objectReference: {fileID: 8077274437238576483, guid: 00f4808c54e49b349975c4ae972bc5b9, type: 3}
     - target: {fileID: 2414000048237472804, guid: 5f16639e8b717a04ead96fa4493be87d, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -53027,6 +53031,10 @@ PrefabInstance:
     - target: {fileID: 6861017083455892307, guid: 5f16639e8b717a04ead96fa4493be87d, type: 3}
       propertyPath: m_Name
       value: ClearCounter (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9004360753919831990, guid: 5f16639e8b717a04ead96fa4493be87d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -107242,6 +107250,10 @@ PrefabInstance:
     - target: {fileID: 6861017083455892307, guid: 5f16639e8b717a04ead96fa4493be87d, type: 3}
       propertyPath: m_Name
       value: ClearCounter
+      objectReference: {fileID: 0}
+    - target: {fileID: 9004360753919831990, guid: 5f16639e8b717a04ead96fa4493be87d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
