@@ -11,7 +11,7 @@ public class CubeMover : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(Vector3.back * (speed * Time.deltaTime), Space.Self);
+        transform.Translate(Vector3.back * (speed * Time.deltaTime));
 
         if (transform.localPosition.z <= thresholdZPosition)
         {
