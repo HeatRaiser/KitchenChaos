@@ -19,10 +19,12 @@ public class TrashCounter : BaseCounter
         KitchenObject playerKitchenObject = player.GetKitchenObject();
         Transform trashCounterTransform = GetKitchenObjectFollowTransform();
         Transform objectTransform = playerKitchenObject.transform;
+        Vector3 targetScale = new Vector3(0.8f, 0.8f, 0.8f);
 
         while (Vector3.Distance(objectTransform.position, trashCounterTransform.position) > 0.01f)
         {
             objectTransform.position = Vector3.Lerp(objectTransform.position, trashCounterTransform.position, Time.deltaTime * 5);
+            objectTransform.localScale = Vector3.Lerp(objectTransform.localScale, targetScale, Time.deltaTime * 5);
             yield return null;
         }
 

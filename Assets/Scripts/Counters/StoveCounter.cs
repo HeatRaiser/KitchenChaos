@@ -75,6 +75,7 @@ public class StoveCounter : BaseCounter, IHasProgress
                     {
                         progressNormalized = burningTimer / burningRecipeSO.burningTimerMax
                     });
+                    
                     if (burningTimer > burningRecipeSO.burningTimerMax)
                     {
                         burningTimer = 0f;
