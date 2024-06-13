@@ -165,6 +165,18 @@ public class Player : MonoBehaviour, IKitchenObjectParent
         return kitchenObject;
     }
 
+    public bool TryGetPlateObject(out PlateKitchenObject plateKitchenObject)
+    {
+        if (kitchenObject.TryGetComponent(out PlateKitchenObject plate))
+        {
+            plateKitchenObject = plate;
+            return true;
+        }
+
+        plateKitchenObject = null;
+        return false;
+    }
+
     public void ClearKitchenObject()
     {
         kitchenObject = null;
