@@ -8,6 +8,8 @@ public class GamePauseUI : MonoBehaviour
 {
     [SerializeField] private Button resumeButton;
     [SerializeField] private Button mainMenuButton;
+    [SerializeField] private Button optionsButton;
+    [SerializeField] private VolumeSlider volumeControllerPanel;
 
     private void Awake()
     {
@@ -26,7 +28,14 @@ public class GamePauseUI : MonoBehaviour
         GameManager.Instance.OnGamePaused += GameManager_OnGamePaused;
         GameManager.Instance.OnGameUnpaused += GameManager_OnGameUnpaused;
         
+        optionsButton.onClick.AddListener(OnOptionsMenuButton);
+        
         Hide();
+    }
+
+    private void OnOptionsMenuButton()
+    {
+        volumeControllerPanel.Show();
     }
 
     private void GameManager_OnGameUnpaused(object sender, EventArgs e)
