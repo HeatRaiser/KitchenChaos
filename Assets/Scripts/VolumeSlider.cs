@@ -6,8 +6,7 @@ public class VolumeSlider : MonoBehaviour
 {
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider effectsSlider;
-
-    [SerializeField] private Button closeButton;
+    
     [SerializeField] private AudioSource backgroundMusic;
 
     private const string PLAYER_PREFS_MUSIC_VOLUME = "BackgroundMusic";
@@ -18,24 +17,6 @@ public class VolumeSlider : MonoBehaviour
     {
         musicSlider.onValueChanged.AddListener(ChangeMusicVolume);
         effectsSlider.onValueChanged.AddListener(ChangeEffectsVolume);
-        closeButton.onClick.AddListener(Hide);
-        
-        Hide();
-        
-    }
-
-
-    private void Hide()
-    {
-        gameObject.SetActive(false);
-    }
-
-    public void Show()
-    {
-        musicSlider.value = PlayerPrefs.GetFloat(PLAYER_PREFS_MUSIC_VOLUME, 1f);
-        effectsSlider.value = PlayerPrefs.GetFloat(PLAYER_PREFS_EFFECTS_VOLUME, 1f);
-        
-        gameObject.SetActive(true);
     }
 
     private void ChangeEffectsVolume(float volume)
@@ -52,6 +33,12 @@ public class VolumeSlider : MonoBehaviour
         
         PlayerPrefs.SetFloat(PLAYER_PREFS_MUSIC_VOLUME, volume);
         PlayerPrefs.Save();
+    }
+
+    public void UpdateSliders()
+    {
+        musicSlider.value = PlayerPrefs.GetFloat(PLAYER_PREFS_MUSIC_VOLUME, 1f);
+        effectsSlider.value = PlayerPrefs.GetFloat(PLAYER_PREFS_EFFECTS_VOLUME, 1f);
     }
 
     
