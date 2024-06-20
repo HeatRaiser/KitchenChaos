@@ -48,22 +48,23 @@ public class Player : NetworkBehaviour, IKitchenObjectParent
         }
     }
 
-    private void GameInput_OnInteractAction(object sender, System.EventArgs e)
+    private void GameInput_OnInteractAction(object sender, EventArgs e)
     {
-        Debug.Log("Entered");
         if (!GameManager.Instance.IsGamePlaying()) return;
 
-        Debug.Log("Further");
-        
         if (selectedCounter != null)
         {
-            Debug.Log("Further");
             selectedCounter.Interact(this);
         }
     }
 
     private void Update()
     {
+        if (!IsOwner)
+        {
+            return;
+        }
+        
         HandleMovement();
         
         HandleInteractions();
@@ -78,16 +79,14 @@ public class Player : NetworkBehaviour, IKitchenObjectParent
     {
         Vector2 inputVector = GameInput.Instance.GetMovementVectorNormalized();
         
-        //Debug.Log(inputVector);
-        
         Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
 
         if (moveDir != Vector3.zero)
         {
             lastInteractDirection = moveDir;
         }
-
-        if (Physics.Raycast(transform.position, lastInteractDirection, out RaycastHit raycastHit, interactRange, countersLayerMask))
+        
+        if (Physics.Raycast(transform.position , lastInteractDirection, out RaycastHit raycastHit, interactRange, countersLayerMask))
         {
             if(raycastHit.transform.TryGetComponent(out BaseCounter baseCounter))
             {
