@@ -10,8 +10,8 @@ public class DeliveryManagerSingleUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI recipeNameText;
     [SerializeField] private Transform iconContainer;
     [SerializeField] private Transform iconTemplate;
-    [SerializeField] private TextMeshProUGUI timeRemainingText;
-    private float timeRemaining;
+    // [SerializeField] private TextMeshProUGUI timeRemainingText;
+    // private float timeRemaining;
 
 
     private void Awake()
@@ -21,13 +21,13 @@ public class DeliveryManagerSingleUI : MonoBehaviour
 
     private void Update()
     {
-        timeRemaining -= Time.deltaTime;
-        timeRemainingText.text = Mathf.FloorToInt(timeRemaining).ToString();
-
-        if (timeRemaining <= 0f)
-        {
-            DeliveryManager.Instance.DisableRecipe();
-        }
+        // timeRemaining -= Time.deltaTime;
+        // timeRemainingText.text = Mathf.FloorToInt(timeRemaining).ToString();
+        //
+        // if (timeRemaining <= 0f)
+        // {
+        //     DeliveryManager.Instance.DisableRecipe();
+        // }
     }
 
     public void SetRecipeSO(RecipeSO recipeSO)
@@ -51,7 +51,7 @@ public class DeliveryManagerSingleUI : MonoBehaviour
             iconImage.sprite = kitchenObjectSO.sprite;
         }
 
-        timeRemaining = recipeSO.kitchenObjectSOList.Count * 5 + DeliveryManager.Instance.GetWaitingRecipesList().Count;
-        timeRemainingText.text = timeRemaining.ToString();
+        // timeRemaining = recipeSO.kitchenObjectSOList.Count * 5 + DeliveryManager.Instance.GetWaitingRecipesList().Count;
+        // timeRemainingText.text = timeRemaining.ToString();
     }
 }

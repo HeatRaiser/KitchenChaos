@@ -42,7 +42,6 @@ public class GameInput : MonoBehaviour
         playerInputActions.Player.InteractAlternate.performed += InteractAlternate_performed;
         playerInputActions.Player.Pause.performed += Pause_Performed;
 
-        
     }
 
     private void OnDestroy()
@@ -67,6 +66,7 @@ public class GameInput : MonoBehaviour
     private void Interact_performed(InputAction.CallbackContext obj)
     {
         OnInteractAction?.Invoke(this, EventArgs.Empty);
+        Debug.Log("hit");
     }
 
     public Vector2 GetMovementVectorNormalized()

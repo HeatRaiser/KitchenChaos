@@ -13,7 +13,7 @@ public class TestingNetworkUI : MonoBehaviour
     private void Awake()
     {
         hostButton.onClick.AddListener(StartHost);
-        hostButton.onClick.AddListener(StartClient);
+        clientButton.onClick.AddListener(StartClient);
     }
 
     private void StartClient()

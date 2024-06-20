@@ -1,9 +1,10 @@
 using System;
+using Unity.Netcode;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IKitchenObjectParent
+public class Player : NetworkBehaviour, IKitchenObjectParent
 {
-    public static Player Instance {get; private set;}
+    //public static Player Instance {get; private set;}
 
     public event EventHandler OnPickedSomething;
     public event EventHandler <OnSelectedCounterChangeEventArgs> OnSelectedCounterChange;
@@ -14,7 +15,6 @@ public class Player : MonoBehaviour, IKitchenObjectParent
     }
     
     [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private GameInput gameInput;
     [SerializeField] private LayerMask countersLayerMask;
     [SerializeField] private LayerMask colliderLayerMask;
     [SerializeField] private float interactRange = 2f;
@@ -27,35 +27,37 @@ public class Player : MonoBehaviour, IKitchenObjectParent
 
     private void Awake()
     {
-        if (Instance != null)
-        {
-            Debug.LogError(("More than 1 instance"));
-        }
-        Instance = this;
+        //Instance = this;
     }
 
     private void Start()
     {
-        gameInput.OnInteractAction += GameInput_OnInteractAction;
-        gameInput.OnInteractAlternateAction += GameInput_OnInteractAlternateAction;
+        GameInput.Instance.OnInteractAction += GameInput_OnInteractAction;
+        GameInput.Instance.OnInteractAlternateAction += GameInput_OnInteractAlternateAction;
     }
     
     private void GameInput_OnInteractAlternateAction(object sender, System.EventArgs e)
     {
         if (!GameManager.Instance.IsGamePlaying()) return;
+        Debug.Log("Entered");
         
         if (selectedCounter != null)
         {
             selectedCounter.InteractAlternate(this);
+            Debug.Log("Interacted");
         }
     }
 
     private void GameInput_OnInteractAction(object sender, System.EventArgs e)
     {
+        Debug.Log("Entered");
         if (!GameManager.Instance.IsGamePlaying()) return;
 
+        Debug.Log("Further");
+        
         if (selectedCounter != null)
         {
+            Debug.Log("Further");
             selectedCounter.Interact(this);
         }
     }
@@ -74,7 +76,9 @@ public class Player : MonoBehaviour, IKitchenObjectParent
 
     private void HandleInteractions()
     {
-        Vector2 inputVector = gameInput.GetMovementVectorNormalized();
+        Vector2 inputVector = GameInput.Instance.GetMovementVectorNormalized();
+        
+        //Debug.Log(inputVector);
         
         Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
 
@@ -102,7 +106,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent
 
     private void HandleMovement()
     {
-        Vector2 inputVector = gameInput.GetMovementVectorNormalized();
+        Vector2 inputVector = GameInput.Instance.GetMovementVectorNormalized();
         
         Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
 
@@ -150,6 +154,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent
     private void SetSelectedCounter(BaseCounter newSelectedCounter)
     {
         selectedCounter = newSelectedCounter;
+        
         OnSelectedCounterChange?.Invoke(this,new OnSelectedCounterChangeEventArgs()
         {
             selectedCounter = newSelectedCounter
