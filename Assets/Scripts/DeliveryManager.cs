@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -33,7 +34,7 @@ public class DeliveryManager : MonoBehaviour
         {
             spawnRecipeTimer = spawnRecipeTimerMax;
 
-            if (waitingRecipeSOList.Count < waitingRecipesMax)
+            if (GameManager.Instance.IsGamePlaying() && waitingRecipeSOList.Count < waitingRecipesMax)
             {
                 RecipeSO waitingRecipeSO = recipeSOList.recipeSOList[Random.Range(0, recipeSOList.recipeSOList.Count)];
                 waitingRecipeSOList.Add(waitingRecipeSO);
@@ -83,8 +84,17 @@ public class DeliveryManager : MonoBehaviour
             }
         }
         
-        Debug.Log("Nope");
         OnRecipeFailed?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void DisableRecipe()
+    {
+        // for (int i = 0; i < waitingRecipeSOList.Count; i++)
+        // {
+        //     waitingRecipeSOList.RemoveAt(i);
+        //     
+        //     OnRecipeCompleted?.Invoke(this, EventArgs.Empty);
+        // }
     }
 
     public List<RecipeSO> GetWaitingRecipesList()

@@ -32,7 +32,7 @@ public class PlateCounter : BaseCounter
         {
             timeBetweenSpawns = 0f;
 
-            if (platesAmount < maxPlatesAmount)
+            if (GameManager.Instance.IsGamePlaying() && platesAmount < maxPlatesAmount)
             {
                 platesAmount++;
                 

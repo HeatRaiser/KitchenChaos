@@ -8,7 +8,14 @@ public class GameCountdownTimerUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI countdownTimerText;
 
+    private Animator animator;
+
     private const float countdownToStart = 3f;
+
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     private void Start()
     {
@@ -48,6 +55,9 @@ public class GameCountdownTimerUI : MonoBehaviour
 
         do
         {
+            animator.SetTrigger("NumberPopup");
+            SoundManager.Instance.PlayCountdownSound();
+            
             yield return new WaitForSeconds(1f);
 
             maxTime -= 1f;
