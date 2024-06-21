@@ -17,7 +17,7 @@ public class DeliveryManager : NetworkBehaviour
     [SerializeField] private RecipeSOList recipeSOList;
     
     private List<RecipeSO> waitingRecipeSOList;
-    private float spawnRecipeTimer = 0f;
+    private float spawnRecipeTimer = 4f;
     private float spawnRecipeTimerMax = 4f;
     private int waitingRecipesMax = 4;
     private int succesfulDeliveries;
@@ -84,19 +84,43 @@ public class DeliveryManager : NetworkBehaviour
 
                 if (plateContentsMatchesRecipe)
                 {
-                    succesfulDeliveries++;
-                    
-                    waitingRecipeSOList.RemoveAt(i);
-                    
-                    OnRecipeCompleted?.Invoke(this, EventArgs.Empty);
-                    OnRecipeSuccess?.Invoke(this, EventArgs.Empty);
+                    DeliverSuccesfulRecipeServerRpc(i);
                     
                     return;
                 }
             }
         }
-        
+        DeliverFailedRecipeServerRpc();
+    }
+    
+    
+    [ServerRpc (RequireOwnership = false)]
+    private void DeliverFailedRecipeServerRpc()
+    {
+        DeliverFailedRecipeClientRpc();
+    }
+    
+    [ClientRpc]
+    private void DeliverFailedRecipeClientRpc()
+    {
         OnRecipeFailed?.Invoke(this, EventArgs.Empty);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void DeliverSuccesfulRecipeServerRpc(int waitingRecipeSOListIndex)
+    {
+        DeliverSuccesfulRecipeClientRpc(waitingRecipeSOListIndex);
+    }
+    
+    [ClientRpc]
+    private void DeliverSuccesfulRecipeClientRpc(int waitingRecipeSOListIndex)
+    {
+        succesfulDeliveries++;
+                    
+        waitingRecipeSOList.RemoveAt(waitingRecipeSOListIndex);
+                    
+        OnRecipeCompleted?.Invoke(this, EventArgs.Empty);
+        OnRecipeSuccess?.Invoke(this, EventArgs.Empty);
     }
 
     public void DisableRecipe()

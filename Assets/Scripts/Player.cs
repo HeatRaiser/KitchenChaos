@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class Player : NetworkBehaviour, IKitchenObjectParent
 {
-    //public static Player Instance {get; private set;}
-
+    public static EventHandler OnAnyPlayerSpawned;
+    public static void ResetStaticData()
+    {
+        OnAnyPlayerSpawned = null;
+    }
+    public static Player LocalInstance {get; private set;}
+    
     public event EventHandler OnPickedSomething;
     public event EventHandler <OnSelectedCounterChangeEventArgs> OnSelectedCounterChange;
 
@@ -25,15 +30,22 @@ public class Player : NetworkBehaviour, IKitchenObjectParent
     private Vector3 lastInteractDirection;
     private BaseCounter selectedCounter;
 
-    private void Awake()
-    {
-        //Instance = this;
-    }
+   
 
     private void Start()
     {
         GameInput.Instance.OnInteractAction += GameInput_OnInteractAction;
         GameInput.Instance.OnInteractAlternateAction += GameInput_OnInteractAlternateAction;
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        if (IsOwner)
+        {
+            LocalInstance = this;
+        }
+        
+        OnAnyPlayerSpawned?.Invoke(this, EventArgs.Empty);
     }
     
     private void GameInput_OnInteractAlternateAction(object sender, System.EventArgs e)
