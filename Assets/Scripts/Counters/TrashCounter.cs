@@ -16,9 +16,8 @@ public class TrashCounter : BaseCounter
     {
         if (player.HasKitchenObject())
         {
-            player.GetKitchenObject().transform.SetParent(null);
-            
-            StartCoroutine(MoveToTrashAndDestroy(player));
+            KitchenObject.DestroyKitchenObject(player.GetKitchenObject());
+            //StartCoroutine(MoveToTrashAndDestroy(player));
             
             InteractLogicServerRpc();
         }
@@ -36,22 +35,22 @@ public class TrashCounter : BaseCounter
         OnObjectTrashed?.Invoke(this,EventArgs.Empty);
     }
     
-    private IEnumerator MoveToTrashAndDestroy(Player player)
-    {
-        KitchenObject playerKitchenObject = player.GetKitchenObject();
-        Transform trashCounterTransform = GetKitchenObjectFollowTransform();
-        Transform objectTransform = playerKitchenObject.transform;
-        Vector3 targetScale = new Vector3(0.8f, 0.8f, 0.8f);
-
-        while (Vector3.Distance(objectTransform.position, trashCounterTransform.position) > 0.01f)
-        {
-            objectTransform.position = Vector3.Lerp(objectTransform.position, trashCounterTransform.position, Time.deltaTime * 5);
-            objectTransform.localScale = Vector3.Lerp(objectTransform.localScale, targetScale, Time.deltaTime * 5);
-            yield return null;
-        }
-
-        objectTransform.position = trashCounterTransform.position;
-
-        player.GetKitchenObject().DestroySelf();
-    }
+    // private IEnumerator MoveToTrashAndDestroy(Player player)
+    // {
+    //     KitchenObject playerKitchenObject = player.GetKitchenObject();
+    //     Transform trashCounterTransform = GetKitchenObjectFollowTransform();
+    //     Transform objectTransform = playerKitchenObject.transform;
+    //     Vector3 targetScale = new Vector3(0.8f, 0.8f, 0.8f);
+    //
+    //     while (Vector3.Distance(objectTransform.position, trashCounterTransform.position) > 0.01f)
+    //     {
+    //         objectTransform.position = Vector3.Lerp(objectTransform.position, trashCounterTransform.position, Time.deltaTime * 5);
+    //         objectTransform.localScale = Vector3.Lerp(objectTransform.localScale, targetScale, Time.deltaTime * 5);
+    //         yield return null;
+    //     }
+    //
+    //     objectTransform.position = trashCounterTransform.position;
+    //
+    //     
+    // }
 }
