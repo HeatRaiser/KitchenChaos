@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 public class TrashCounter : BaseCounter
@@ -19,8 +20,20 @@ public class TrashCounter : BaseCounter
             
             StartCoroutine(MoveToTrashAndDestroy(player));
             
-            OnObjectTrashed?.Invoke(this,EventArgs.Empty);
+            InteractLogicServerRpc();
         }
+    }
+    
+    [ServerRpc(RequireOwnership = false)]
+    private void InteractLogicServerRpc()
+    {
+        InteractLogicClientRpc();
+    }
+
+    [ClientRpc]
+    private void InteractLogicClientRpc()
+    {
+        OnObjectTrashed?.Invoke(this,EventArgs.Empty);
     }
     
     private IEnumerator MoveToTrashAndDestroy(Player player)

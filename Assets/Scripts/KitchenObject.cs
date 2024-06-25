@@ -47,7 +47,7 @@ public class KitchenObject : NetworkBehaviour
 
         if (kitchenObjectParent.HasKitchenObject())
         {
-            Debug.LogError("Counter has a kitchen object");
+            Debug.LogError("Counter has a kitchen object" + kitchenObjectParent.GetNetworkObject().name);
         }
         kitchenObjectParent.SetKitchenObject(this);
         
