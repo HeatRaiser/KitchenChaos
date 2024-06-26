@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 9157543240094845328}
   - component: {fileID: 3338346832703810671}
   - component: {fileID: 1674584540647642966}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -141,9 +141,14 @@ MonoBehaviour:
     m_Bits: 64
   colliderLayerMask:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 200
   interactRange: 2
   kitchenObjectHoldPoint: {fileID: 6674597060197854430}
+  spawnPositionList:
+  - {x: -2, y: 0, z: 0}
+  - {x: 2, y: 0, z: 0}
+  - {x: -2, y: 0, z: -2}
+  - {x: 2, y: 0, z: -2}
 --- !u!136 &4038032439869830223
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -163,7 +168,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.81094056
+  m_Radius: 0.65
   m_Height: 2.3
   m_Direction: 1
   m_Center: {x: -0.028388858, y: 0.99735224, z: 0.009766877}
