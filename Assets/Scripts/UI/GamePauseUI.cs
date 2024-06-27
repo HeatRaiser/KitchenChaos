@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,14 +20,15 @@ public class GamePauseUI : MonoBehaviour
         });
         mainMenuButton.onClick.AddListener(() =>
         {
+            NetworkManager.Singleton.Shutdown();
             Loader.Load(Loader.Scene.MainMenu);
         });
     }
 
     private void Start()
     {
-        GameManager.Instance.OnGamePaused += GameManager_OnGamePaused;
-        GameManager.Instance.OnGameUnpaused += GameManager_OnGameUnpaused;
+        GameManager.Instance.OnLocalGamePaused += LocalGameManager_OnLocalGamePaused;
+        GameManager.Instance.OnLocalGameUnpaused += LocalGameManager_OnLocalGameUnpaused;
         
         optionsButton.onClick.AddListener(OnOptionsMenuButton);
         
@@ -38,12 +40,12 @@ public class GamePauseUI : MonoBehaviour
         optionsUI.Show();
     }
 
-    private void GameManager_OnGameUnpaused(object sender, EventArgs e)
+    private void LocalGameManager_OnLocalGameUnpaused(object sender, EventArgs e)
     {
         Hide();
     }
 
-    private void GameManager_OnGamePaused(object sender, EventArgs e)
+    private void LocalGameManager_OnLocalGamePaused(object sender, EventArgs e)
     {
         Show();
     }

@@ -19,7 +19,7 @@ public class TutorialUI : MonoBehaviour
 
     private void Awake()
     {
-        Show();
+        
         // if (!PlayerPrefs.HasKey(PLAYER_PREFS_TUTORIAL_AUTOSHOW))
         // {
         //     Show();
@@ -33,22 +33,20 @@ public class TutorialUI : MonoBehaviour
 
     private void Start()
     {
-        GameInput.Instance.OnInteractAction += GameInput_SetPlayerReady;
         GameInput.Instance.OnBindingRebind += GameInput_OnBindingRebind;
-        
         GameManager.Instance.OnLocalPlayerReady += GameManager_OnLocalPlayerReady;
         
         UpdateVisual();
-    }
-
-    private void GameInput_SetPlayerReady(object sender, EventArgs e)
-    {
-        GameManager.Instance.isLocalPlayerReady = true;
+        
+        Show();
     }
 
     private void GameManager_OnLocalPlayerReady(object sender, EventArgs e)
     {
-        Hide(this, EventArgs.Empty);
+        if (GameManager.Instance.IsLocalPlayerReady())
+        {
+            Hide();
+        }
     }
 
     private void GameInput_OnBindingRebind(object sender, EventArgs e)
@@ -67,7 +65,7 @@ public class TutorialUI : MonoBehaviour
         keyPauseText.text = GameInput.Instance.GetBindingText(GameInput.Bindings.Pause);
     }
 
-    private void Hide(object sender, EventArgs e)
+    private void Hide()
     {
         tutorialCanvas.SetActive(false);
     }

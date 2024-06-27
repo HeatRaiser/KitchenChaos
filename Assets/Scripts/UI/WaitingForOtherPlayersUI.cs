@@ -5,14 +5,26 @@ public class WaitingForOtherPlayersUI : MonoBehaviour
 {
     private void Start()
     {
-        Hide();
-
         GameManager.Instance.OnLocalPlayerReady += GameManager_OnLocalPlayerReady;
+        GameManager.Instance.OnStateChanged += GameManager_OnStateChanged;
+        
+        Hide();
+    }
+
+    private void GameManager_OnStateChanged(object sender, EventArgs e)
+    {
+        if (GameManager.Instance.IsCountdownToStartActive())
+        {
+            Hide();
+        }
     }
 
     private void GameManager_OnLocalPlayerReady(object sender, EventArgs e)
     {
-        Show();
+        if (GameManager.Instance.IsLocalPlayerReady())
+        {
+            Show();
+        }
     }
 
     private void Hide()
