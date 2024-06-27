@@ -18,14 +18,14 @@ public class TestingNetworkUI : MonoBehaviour
 
     private void StartClient()
     {
-        NetworkManager.Singleton.StartClient();
+        KitchenGameMultiplayer.Instance.StartHost();
         
         Hide();
     }
 
     private void StartHost()
     {
-        NetworkManager.Singleton.StartHost();
+        KitchenGameMultiplayer.Instance.StartClient();
         
         Hide();
     }
