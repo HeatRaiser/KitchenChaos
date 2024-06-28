@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : NetworkBehaviour
 {
@@ -13,6 +14,7 @@ public class GameManager : NetworkBehaviour
     public event EventHandler OnMultiplayerGamePaused;
     public event EventHandler OnMultiplayerGameUnpaused;
     public event EventHandler OnLocalPlayerReady;
+    
 
     
     private enum State
@@ -33,6 +35,8 @@ public class GameManager : NetworkBehaviour
     private float gamePlayingMax = 300f;
     private Dictionary<ulong, bool> playersReadyDictionary;
     private Dictionary<ulong, bool> playerPausedDictionary;
+
+    [SerializeField] private GameObject playerPrefab;
 
     
 
@@ -70,6 +74,16 @@ public class GameManager : NetworkBehaviour
         if (IsServer)
         {
             NetworkManager.Singleton.OnClientDisconnectCallback += NetworkManager_OnClientDisconnectCallback;
+            NetworkManager.Singleton.SceneManager.OnLoadEventCompleted += SceneManager_OnLoadEventCompleted;
+        }
+    }
+
+    private void SceneManager_OnLoadEventCompleted(string scenename, LoadSceneMode loadscenemode, List<ulong> clientscompleted, List<ulong> clientstimedout)
+    {
+        foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds)
+        {
+            GameObject player = Instantiate(playerPrefab);
+            player.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, true);
         }
     }
 

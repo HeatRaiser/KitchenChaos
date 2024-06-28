@@ -64,7 +64,6 @@ public class GameInput : MonoBehaviour
     private void Interact_performed(InputAction.CallbackContext obj)
     {
         OnInteractAction?.Invoke(this, EventArgs.Empty);
-        Debug.Log("hit");
     }
 
     public Vector2 GetMovementVectorNormalized()
